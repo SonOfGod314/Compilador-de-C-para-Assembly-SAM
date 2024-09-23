@@ -1,0 +1,50 @@
+program -> main listaDeclarations listaStatements end
+
+main -> TipoDado Main AbreParenteses FechaParenteses AbreChave
+
+listaDeclarations -> declaration listaDeclarations
+listaDeclarations -> &
+
+declaration -> TipoDado Variavel PontoVirgula
+
+listaStatements -> statement listaStatements
+listaStatements -> &
+
+statement -> Variavel IgualAtribuidor expression PontoVirgula
+statement -> While logExpr AbreChave listaStatements FechaChave
+statement -> If logExpr AbreChave listaStatements FechaChave else Endif
+else -> Else AbreChave listaStatements FechaChave else
+else -> &
+statement -> Printf AbreParenteses Variavel FechaParenteses PontoVirgula
+
+expr -> AbreParenteses expression relational_op expression FechaParenteses
+logExpr -> expr moreExpr
+moreExpr -> logOp expr
+moreExpr -> &
+logOp -> And
+logOp -> Or
+
+relational_op -> Maior
+relational_op -> Menor
+relational_op -> MaiorIgual
+relational_op -> MenorIgual
+relational_op -> Diferente
+relational_op -> Igual
+
+expression -> term expressionTail
+expressionTail -> Add term expressionTail
+expressionTail -> Sub term expressionTail
+expressionTail -> ε
+term -> factor termTail
+termTail -> Mul factor termTail
+termTail -> Div factor termTail
+termTail -> ε
+factor -> AbreParenteses expression FechaParenteses
+factor -> Number
+factor -> Variavel
+
+end -> FechaChave
+
+
+---------------------------------------------------------------------------------------
+
